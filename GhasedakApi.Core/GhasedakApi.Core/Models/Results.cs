@@ -13,6 +13,18 @@ namespace GhasedakApi.Core.Models
             public object Items { get; set; }
 
         }
+        public class AccountResult
+        {
+            public ResultItems Result { get; set; }
+            public AccountItemResult Items { get; set; }
+
+        }
+        public class AccountItemResult
+        {
+            public int Balance { get; set; }
+            public string Expire { get; set; }
+
+        }
         public class ResultItems
         {
             public int Code { get; set; }

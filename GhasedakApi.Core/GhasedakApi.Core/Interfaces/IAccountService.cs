@@ -9,6 +9,6 @@ namespace GhasedakApi.Core.Interfaces
 {
     public interface IAccountService
     {
-        Task<ApiResult> AccountInfo();
+        Task<AccountResult> AccountInfo();
     }
 }

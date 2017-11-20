@@ -12,11 +12,6 @@ namespace GhasedakApi.Core.Exceptions
         /// </summary>
         public int Code { get; }
 
-        /// <summary>
-        /// HTTP status code
-        /// </summary>
-        public int Status { get; }
-
 
         /// <summary>
         /// Create a ApiException with message
@@ -40,13 +35,11 @@ namespace GhasedakApi.Core.Exceptions
         /// <param name="exception">Original exception</param>
         public ConnectionException(
             int code,
-            int status,
             string message,
             Exception exception = null
         ) : base(message, exception)
         {
             Code = code;
-            Status = status;
         }
     }
 }
