@@ -17,7 +17,7 @@ namespace GhasedakApi.Core
         /// <summary>
         /// The root URI for the service endpoint.
         /// </summary>
-        private const string _BaseUrl = "http://178.216.249.18:8011/";
+        private const string _BaseUrl = "https://ghasedakapi.com/";
 
         private readonly string _apikey;
 
