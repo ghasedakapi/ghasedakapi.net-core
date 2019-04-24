@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageProjectUrl>https://ghasedak.io/</PackageProjectUrl>
+    <PackageIconUrl>https://ghasedak.io/img/favicon/favicon-32x32.png</PackageIconUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

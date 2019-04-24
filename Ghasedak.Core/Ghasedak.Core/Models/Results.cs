@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GhasedakApi.Core.Models
+namespace Ghasedak.Core.Models
 {
     public class Results
     {

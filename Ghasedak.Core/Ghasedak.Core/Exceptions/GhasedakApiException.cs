@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GhasedakApi.Core.Exceptions
+namespace Ghasedak.Core.Exceptions
 {
     public class GhasedakApiException:Exception
     {
