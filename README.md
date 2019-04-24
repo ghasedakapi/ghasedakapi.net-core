@@ -32,29 +32,7 @@
             {
                 Console.WriteLine(ex.Message);
             }
-           }
 
-
-
-
-
-          try 
-            {
-                var sms = new Ghasedak.Core.Api("apikey");
-                var result = sms.SendSMS("message", "receptor", "lineNumber");
-                foreach ( var item in result.Items)
-                 {
-                    Console.WriteLine (item);
-                 }
-            }
-            catch (Ghasedak.Core.Exceptions.ApiException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (Ghasedak.Core.Exceptions.ConnectionException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }  
 ```
 
 ## Bulk Send
