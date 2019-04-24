@@ -17,7 +17,7 @@
 
       try
             {
-                var sms = new Ghasedak.Core.Api("e50077bcc301871bc989b03079d55e15027b0ae7cabe555773874e8b115b27bb");
+                var sms = new Ghasedak.Core.Api("apikey");
                 var result = await sms.SendSMS("تست", "09378108880");
                 foreach (var item in result.Items)
                 {
