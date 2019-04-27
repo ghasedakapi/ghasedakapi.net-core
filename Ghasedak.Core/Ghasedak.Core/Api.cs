@@ -42,8 +42,8 @@ namespace Ghasedak.Core
         {
             var url = "v2/sms/send/simple";
             var param = new Dictionary<string, object>();
-            param.Add("apikey", _apikey);
-            param.Add("message", WebUtility.UrlEncode(message));
+            param.Add("message", message);
+            param.Add("receptor", receptor);
 
             if (!string.IsNullOrEmpty(linenumber))
                 param.Add("linenumber", linenumber);
@@ -65,13 +65,13 @@ namespace Ghasedak.Core
 
             foreach (var item in message)
             {
-                msg.Append(WebUtility.UrlEncode(item)).Append(",");
+                msg.Append(item).Append(",");
             }
-            param.Add("apikey", _apikey);
+
             param.Add("linenumber", linenumber);
             param.Add("message", msg);
             param.Add("receptor", string.Join(",", receptor));
-            if (senddate.Length > 0)
+            if (senddate != null &&  senddate.Length > 0)
             {
                 foreach (var item in senddate)
                 {
@@ -80,7 +80,7 @@ namespace Ghasedak.Core
                 param.Add("senddate", date);
             }
 
-            if (checkid.Length > 0)
+            if (checkid != null  && checkid.Length > 0)
                 param.Add("checkid", string.Join(",", checkid));
 
             var res = await PostRequest(url, param);
@@ -91,8 +91,7 @@ namespace Ghasedak.Core
             var url = "v2/sms/send/pair";
             var param = new Dictionary<string, object>();
 
-            param.Add("apikey", _apikey);
-            param.Add("message", WebUtility.UrlEncode(message));
+            param.Add("message", message);
             param.Add("receptor", string.Join(",", receptor));
 
             if (!string.IsNullOrEmpty(linenumber))
@@ -100,7 +99,7 @@ namespace Ghasedak.Core
 
             if (senddate.HasValue)
                 param.Add("senddate", Utilities.Date_Time.DatetimeToUnixTimeStamp(Convert.ToDateTime(senddate)));
-            if (checkid.Length > 0)
+            if (checkid != null && checkid.Length > 0)
                 param.Add("checkid", string.Join(",", checkid));
 
             var res = await PostRequest(url, param);
@@ -111,7 +110,6 @@ namespace Ghasedak.Core
             var url = "v2/verification/send/simple";
             var param = new Dictionary<string, object>
         {
-            {"apikey", _apikey},
             {"type", type},
             {"receptor",string.Join(",",receptor) },
             {"template", template},
@@ -134,7 +132,7 @@ namespace Ghasedak.Core
             var url = "v2/sms/status";
             var param = new Dictionary<string, object>
                {
-                   {"apikey", _apikey},
+       
                    {"type", type},
                    {"id", string.Join(",",id)},
                };
@@ -146,7 +144,7 @@ namespace Ghasedak.Core
             var url = "v2/sms/cancel";
             var param = new Dictionary<string, object>
              {
-                {"apikey", _apikey},
+    
                 {"messageid", string.Join(",",messageid)},
              };
             var res = await PostRequest(url, param);
@@ -158,11 +156,7 @@ namespace Ghasedak.Core
         public async Task<AccountResult> AccountInfo()
         {
             var url = "v2/account/info";
-            var param = new Dictionary<string, object>
-              {
-                  {"apikey", _apikey}
-               };
-            var res = await PostRequest(url, param);
+            var res = await PostRequest(url,null);
             return JsonConvert.DeserializeObject<AccountResult>(res);
         }
         #endregion
@@ -173,7 +167,6 @@ namespace Ghasedak.Core
             var url = "v2/sms/receive/last";
             var param = new Dictionary<string, object>
                 {
-                 {"apikey", _apikey},
                  {"linenumber", linenumber},
                  {"isRead", isRead},
                 };
@@ -185,7 +178,6 @@ namespace Ghasedak.Core
             var url = "v2/sms/receive/paging";
             var param = new Dictionary<string, object>
                 {
-                 {"apikey", _apikey},
                  {"linenumber", linenumber},
                  {"isRead", isRead},
                  {"fromdate", Utilities.Date_Time.DatetimeToUnixTimeStamp(Convert.ToDateTime(fromdate))},
@@ -204,7 +196,6 @@ namespace Ghasedak.Core
             var url = "v2/voice/send/simple";
             var param = new Dictionary<string, object>();
 
-            param.Add("apikey", _apikey);
             param.Add("message", message);
             if (senddate.HasValue)
                 param.Add("senddate", Utilities.Date_Time.DatetimeToUnixTimeStamp(Convert.ToDateTime(senddate)));
@@ -220,7 +211,6 @@ namespace Ghasedak.Core
             var url = "v2/contact/group/new";
             var param = new Dictionary<string, object>
              {
-                {"apikey", _apikey},
                 {"name", name},
                 {"parent", parent},
              };
@@ -233,8 +223,7 @@ namespace Ghasedak.Core
             var url = "v2/contact/group/remove";
             var param = new Dictionary<string, object>
              {
-                {"apikey", _apikey},
-                {"groupid", groupid},
+               {"groupid", groupid},
              };
             var res = await PostRequest(url, param);
             return JsonConvert.DeserializeObject<ApiResult>(res);
@@ -245,7 +234,6 @@ namespace Ghasedak.Core
             var url = "v2/contact/group/edit";
             var param = new Dictionary<string, object>
              {
-                {"apikey", _apikey},
                 {"groupid", groupid},
                 {"name", name},
              };
@@ -258,7 +246,6 @@ namespace Ghasedak.Core
             var url = "v2/contact/group/addnumber";
             var param = new Dictionary<string, object>
              {
-                {"apikey", _apikey},
                 {"groupid", groupid},
                 {"number", string.Join(",",number)},
                 {"firstname", string.Join(",",firstname)},
@@ -274,7 +261,6 @@ namespace Ghasedak.Core
             var url = "v2/contact/group/list";
             var param = new Dictionary<string, object>
              {
-                {"apikey", _apikey},
                 {"parent", parent},
              };
             var res = await PostRequest(url, param);
@@ -286,7 +272,6 @@ namespace Ghasedak.Core
             var url = "v2/contact/group/listnumber";
             var param = new Dictionary<string, object>
              {
-                {"apikey", _apikey},
                 {"groupid", groupid},
                 {"page", page},
                 {"offset", offset},
@@ -299,7 +284,8 @@ namespace Ghasedak.Core
         #region Utility
         private async Task<string> PostRequest(string url, Dictionary<string, object> parameters, string method = "POST", string contentType = "application/x-www-form-urlencoded")
         {
-            var resp = await _httpClient.PostAsync(string.Format("{0}{1}", _BaseUrl, url), GetBodyData(parameters));
+            _httpClient.DefaultRequestHeaders.Add("apikey", _apikey);
+            var resp = await _httpClient.PostAsync(string.Format("{0}{1}", _BaseUrl, url), GetBodyData(parameters) );
             var content = await resp.Content.ReadAsStringAsync();
             try
             {

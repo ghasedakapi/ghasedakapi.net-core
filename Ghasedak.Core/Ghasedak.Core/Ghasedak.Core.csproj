@@ -1,10 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageProjectUrl>https://ghasedak.io/</PackageProjectUrl>
     <PackageIconUrl>https://ghasedak.io/img/favicon/favicon-32x32.png</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>ALiReza-Bahrami</Authors>
+    <Description>.Net Core library for Ghasedak SMS Provider 
+https://github.com/ghasedakapi/ghasedakapi.net-core
+
+</Description>
+    <Version>1.0.4</Version>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <RepositoryUrl>https://github.com/ghasedakapi/ghasedakapi.net-core</RepositoryUrl>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>NetCore SDK send sms</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
