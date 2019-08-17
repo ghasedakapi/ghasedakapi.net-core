@@ -19,7 +19,9 @@ namespace Ghasedak.Core
         /// <summary>
         /// The root URI for the service endpoint.
         /// </summary>
-        private const string _BaseUrl = "https://api.ghasedak.io/";
+        //private const string _BaseUrl = "https://api.ghasedak.io/";
+
+        private const string _BaseUrl = "http://localhost:55555/";
         private readonly string _apikey;
 
         /// <summary>
@@ -42,8 +44,8 @@ namespace Ghasedak.Core
         {
             var url = "v2/sms/send/simple";
             var param = new Dictionary<string, object>();
-            param.Add("message", message);
-            param.Add("receptor", receptor);
+            param.Add("message", message ?? "");
+            param.Add("receptor", receptor ?? "");
 
             if (!string.IsNullOrEmpty(linenumber))
                 param.Add("linenumber", linenumber);
@@ -58,20 +60,16 @@ namespace Ghasedak.Core
         public async Task<SendResult> SendSMS(string[] message, string[] linenumber, string[] receptor, DateTime[] senddate = null, string[] checkid = null)
         {
             var url = "v2/sms/send/bulk";
-            var msg = new System.Text.StringBuilder();
+
             var date = new System.Text.StringBuilder();
             var check = new System.Text.StringBuilder();
             var param = new Dictionary<string, object>();
 
-            foreach (var item in message)
-            {
-                msg.Append(item).Append(",");
-            }
 
-            param.Add("linenumber", linenumber);
-            param.Add("message", msg);
-            param.Add("receptor", string.Join(",", receptor));
-            if (senddate != null &&  senddate.Length > 0)
+            param.Add("linenumber", string.Join(",", linenumber ?? new string[] { }));
+            param.Add("message", string.Join(",", message ?? new string[] { }));
+            param.Add("receptor", string.Join(",", receptor ?? new string[] { }));
+            if (senddate != null && senddate.Length > 0)
             {
                 foreach (var item in senddate)
                 {
@@ -80,7 +78,7 @@ namespace Ghasedak.Core
                 param.Add("senddate", date);
             }
 
-            if (checkid != null  && checkid.Length > 0)
+            if (checkid != null && checkid.Length > 0)
                 param.Add("checkid", string.Join(",", checkid));
 
             var res = await PostRequest(url, param);
@@ -91,8 +89,8 @@ namespace Ghasedak.Core
             var url = "v2/sms/send/pair";
             var param = new Dictionary<string, object>();
 
-            param.Add("message", message);
-            param.Add("receptor", string.Join(",", receptor));
+            param.Add("message", message ?? "");
+            param.Add("receptor", string.Join(",", receptor ?? new string[] { }));
 
             if (!string.IsNullOrEmpty(linenumber))
                 param.Add("linenumber", linenumber);
@@ -111,18 +109,18 @@ namespace Ghasedak.Core
             var param = new Dictionary<string, object>
         {
             {"type", type},
-            {"receptor",string.Join(",",receptor) },
-            {"template", template},
-            {"param1", param1},
-            {"param2", param2},
-            {"param3", param3},
-            {"param4", param4},
-            {"param5", param5},
-            {"param6", param6},
-            {"param7", param7},
-            {"param8", param8},
-            {"param9", param9},
-            {"param10", param10},
+            {"receptor",string.Join(",",receptor??new string[]{ }) },
+            {"template", template??""},
+            {"param1", param1??""},
+            {"param2", param2??""},
+            {"param3", param3??""},
+            {"param4", param4??""},
+            {"param5", param5??""},
+            {"param6", param6??""},
+            {"param7", param7??""},
+            {"param8", param8??""},
+            {"param9", param9??""},
+            {"param10", param10??""},
         };
             var res = await PostRequest(url, param);
             return JsonConvert.DeserializeObject<SendResult>(res);
@@ -132,11 +130,10 @@ namespace Ghasedak.Core
             var url = "v2/sms/status";
             var param = new Dictionary<string, object>
                {
-       
                    {"type", type},
-                   {"id", string.Join(",",id)},
+                   {"id", string.Join(",",id??new long[]{ })},
                };
-            var res = await PostRequest(url, param);
+            var res = await PostRequest(url, param, method: "GET");
             return JsonConvert.DeserializeObject<StatusResult>(res);
         }
         public async Task<StatusResult> CancelSMS(long[] messageid)
@@ -144,30 +141,31 @@ namespace Ghasedak.Core
             var url = "v2/sms/cancel";
             var param = new Dictionary<string, object>
              {
-    
-                {"messageid", string.Join(",",messageid)},
+
+                {"messageid", string.Join(",",messageid??new long[]{ })},
              };
             var res = await PostRequest(url, param);
             return JsonConvert.DeserializeObject<StatusResult>(res);
         }
+
         #endregion
 
         #region Account
         public async Task<AccountResult> AccountInfo()
         {
             var url = "v2/account/info";
-            var res = await PostRequest(url,null);
+            var res = await PostRequest(url, new Dictionary<string, object>(), method: "GET");
             return JsonConvert.DeserializeObject<AccountResult>(res);
         }
         #endregion
 
         #region Receive
-        public async Task<ReceiveMessageResult>  ReceiveList(string linenumber, int isRead)
+        public async Task<ReceiveMessageResult> ReceiveList(string linenumber, int isRead)
         {
             var url = "v2/sms/receive/last";
             var param = new Dictionary<string, object>
                 {
-                 {"linenumber", linenumber},
+                 {"linenumber", linenumber??""},
                  {"isRead", isRead},
                 };
             var res = await PostRequest(url, param);
@@ -175,10 +173,14 @@ namespace Ghasedak.Core
         }
         public async Task<ReceiveMessageResult> ReceiveListPaging(string linenumber, int isRead, DateTime fromdate, DateTime todate, int page = 0, int offset = 200)
         {
+
+            if (page < 0) page = 0;
+            if (offset < 0 || offset > 200) offset = 200;
+
             var url = "v2/sms/receive/paging";
             var param = new Dictionary<string, object>
                 {
-                 {"linenumber", linenumber},
+                 {"linenumber", linenumber??""},
                  {"isRead", isRead},
                  {"fromdate", Utilities.Date_Time.DatetimeToUnixTimeStamp(Convert.ToDateTime(fromdate))},
                  {"todate", Utilities.Date_Time.DatetimeToUnixTimeStamp(Convert.ToDateTime(todate))},
@@ -191,12 +193,13 @@ namespace Ghasedak.Core
         #endregion
 
         #region Voice
-        public async Task<SendResult> SendVoice(string message, string[] receptor, DateTime? senddate=null)
+        public async Task<SendResult> SendVoice(string message, string[] receptor, DateTime? senddate = null)
         {
             var url = "v2/voice/send/simple";
             var param = new Dictionary<string, object>();
 
-            param.Add("message", message);
+            param.Add("message", message ?? "");
+            param.Add("receptor", string.Join(",", receptor ?? new string[] { }));
             if (senddate.HasValue)
                 param.Add("senddate", Utilities.Date_Time.DatetimeToUnixTimeStamp(Convert.ToDateTime(senddate)));
 
@@ -211,7 +214,7 @@ namespace Ghasedak.Core
             var url = "v2/contact/group/new";
             var param = new Dictionary<string, object>
              {
-                {"name", name},
+                {"name", name??""},
                 {"parent", parent},
              };
             var res = await PostRequest(url, param);
@@ -235,40 +238,45 @@ namespace Ghasedak.Core
             var param = new Dictionary<string, object>
              {
                 {"groupid", groupid},
-                {"name", name},
+                {"name", name??""},
              };
             var res = await PostRequest(url, param);
             return JsonConvert.DeserializeObject<ApiResult>(res);
         }
 
-        public async Task<ApiResult> AddNumberToGroup(int groupid, string[] number, string[] firstname, string[] lastname, string[] email)
+        public async Task<ApiResult> AddNumberToGroup(int groupid, string[] number, string[] firstname = null, string[] lastname = null, string[] email = null)
         {
             var url = "v2/contact/group/addnumber";
             var param = new Dictionary<string, object>
              {
                 {"groupid", groupid},
-                {"number", string.Join(",",number)},
-                {"firstname", string.Join(",",firstname)},
-                {"lastname", string.Join(",",lastname)},
-                {"email", string.Join(",",email)},
+                {"number", string.Join(",",number??new string[]{})},
+                {"firstname", string.Join(",",firstname ??new string[]{})},
+                {"lastname", string.Join(",",lastname??new string[]{})},
+                {"email", string.Join(",",email??new string[]{})},
              };
             var res = await PostRequest(url, param);
             return JsonConvert.DeserializeObject<ApiResult>(res);
         }
 
-        public async Task<GroupListResult> GroupList(int parent)
+        public async Task<GroupListResult> GroupList(int parent = 0)
         {
             var url = "v2/contact/group/list";
             var param = new Dictionary<string, object>
              {
                 {"parent", parent},
              };
-            var res = await PostRequest(url, param);
+            var res = await PostRequest(url, param, method: "GET");
             return JsonConvert.DeserializeObject<GroupListResult>(res);
         }
 
-        public async Task<GroupNumbersResult> GroupNumbersList(int groupid, int page, int offset)
+        public async Task<GroupNumbersResult> GroupNumbersList(int groupid, int page = 1, int offset = 100)
         {
+            page = page - 1;
+            if (page < 0) page = 0;
+
+            if (offset < 0 || offset > 100) offset = 100;
+
             var url = "v2/contact/group/listnumber";
             var param = new Dictionary<string, object>
              {
@@ -276,16 +284,24 @@ namespace Ghasedak.Core
                 {"page", page},
                 {"offset", offset},
              };
-            var res = await PostRequest(url, param);
+            var res = await PostRequest(url, param, method: "GET");
             return JsonConvert.DeserializeObject<GroupNumbersResult>(res);
         }
         #endregion
+
 
         #region Utility
         private async Task<string> PostRequest(string url, Dictionary<string, object> parameters, string method = "POST", string contentType = "application/x-www-form-urlencoded")
         {
             _httpClient.DefaultRequestHeaders.Add("apikey", _apikey);
-            var resp = await _httpClient.PostAsync(string.Format("{0}{1}", _BaseUrl, url), GetBodyData(parameters) );
+            var resp = new HttpResponseMessage();
+
+            if (method == "POST")
+                resp = await _httpClient.PostAsync(string.Format("{0}{1}", _BaseUrl, url), GetBodyData(parameters));
+            else if (method == "GET")
+                resp = await _httpClient.GetAsync(string.Format("{0}{1}{2}", _BaseUrl, url, GetQueryStringData(parameters)));
+
+
             var content = await resp.Content.ReadAsStringAsync();
             try
             {
@@ -303,6 +319,24 @@ namespace Ghasedak.Core
         {
             return new FormUrlEncodedContent(parameters.Select(x => new KeyValuePair<string, string>(x.Key, x.Value.ToString())));
         }
+
+        private String GetQueryStringData(Dictionary<string, object> parameters)
+        {
+            String queryString = String.Empty;
+            if (parameters != null && parameters.Count > 0)
+            {
+                for (int i = 0; i < parameters.Count; i++)
+                {
+                    if (i == 0)
+                        queryString += ("?" + parameters.Keys.ElementAt(i) + "=" + parameters.Values.ElementAt(i));
+                    else
+                        queryString += ("&" + parameters.Keys.ElementAt(i) + "=" + parameters.Values.ElementAt(i));
+                }
+            }
+            return queryString;
+
+        }
+
         #endregion
     }
 }
