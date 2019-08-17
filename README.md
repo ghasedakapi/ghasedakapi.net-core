@@ -1,15 +1,15 @@
-# Ghasedak.core
+# Ghasedak.Core
 
   ghasedak.core .NET Core Helper Library 
 
-## Adding Ghasedak.core libraries to your .NET Core project
+## Adding Ghasedak.Core libraries to your .NET Core project
 
-  The best and easiest way to add the Ghasedak.core libraries to your .NET Core project is to use the NuGet package manager.
+  The best and easiest way to add the Ghasedak.Core libraries to your .NET Core project is to use the NuGet package manager.
 
 ## Package Manager
-   Install-Package Ghasedak.Core -Version 1.0.1
+   Install-Package Ghasedak.Core -Version 1.0.5
 ## .NET CLI 
-   dotnet add package Ghasedak.Core --version 1.0.1
+   dotnet add package Ghasedak.Core --version 1.0.5
    
 ## Simple Send
 

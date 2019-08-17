@@ -5,7 +5,7 @@
     <PackageProjectUrl>https://ghasedak.io/</PackageProjectUrl>
     <PackageIconUrl>https://ghasedak.io/img/favicon/favicon-32x32.png</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>ALiReza-Bahrami</Authors>
+    <Authors>Mojtaba-Moradi</Authors>
     <Description>.Net Core library for Ghasedak SMS Provider 
 https://github.com/ghasedakapi/ghasedakapi.net-core
 
@@ -17,6 +17,7 @@ https://github.com/ghasedakapi/ghasedakapi.net-core
     <RepositoryUrl>https://github.com/ghasedakapi/ghasedakapi.net-core</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>NetCore SDK send sms</PackageTags>
+    <Company>Ghasedak-ict</Company>
   </PropertyGroup>
 
   <ItemGroup>
