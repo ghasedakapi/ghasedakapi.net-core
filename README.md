@@ -41,8 +41,8 @@
    
           try
             {
-                var bulksms = new Ghasedak.Core.Api("apikey");
-                var res = bulksms.SendSMS("message", "linenumber", new string[] { "0912xxxxxxx","0937xxxxxxxx" });
+                var sms = new Ghasedak.Core.Api("apikey");
+                var res = sms.SendSMS("message", "linenumber", new string[] { "0912xxxxxxx","0937xxxxxxxx" });
                 foreach(var item in res.Items)
                 {
                     Console.WriteLine("messageids:" + item);
@@ -56,6 +56,32 @@
             {
                 Console.WriteLine(ex.Message);
             }
+            
+```
+
+## Verify 
+
+```c#
+
+     try
+            {
+                var sms = new Ghasedak.Core.Api("apikey");
+                var result = sms.Verify(1, "template", new string[] { "0912xxxxxxx", "0937xxxxxxxx" }, "test", "test2");
+                foreach (var item in result.Items)
+                {
+                    Console.WriteLine(item);
+                }
+            }
+            catch (Ghasedak.Core.Exceptions.ApiException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Ghasedak.Core.Exceptions.ConnectionException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+```
             
             
 
