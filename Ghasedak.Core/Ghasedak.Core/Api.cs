@@ -298,7 +298,10 @@ namespace Ghasedak.Core
             if (method == "POST")
                 resp = await _httpClient.PostAsync(string.Format("{0}{1}", _BaseUrl, url), GetBodyData(parameters));
             else if (method == "GET")
+            {
+                parameters.Add("apikey", _apikey);
                 resp = await _httpClient.GetAsync(string.Format("{0}{1}{2}", _BaseUrl, url, GetQueryStringData(parameters)));
+            }
 
 
             var content = await resp.Content.ReadAsStringAsync();
