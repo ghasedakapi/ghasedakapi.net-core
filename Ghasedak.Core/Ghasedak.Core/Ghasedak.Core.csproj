@@ -5,12 +5,12 @@
     <PackageProjectUrl>https://ghasedak.io/</PackageProjectUrl>
     <PackageIconUrl>https://ghasedak.io/img/favicon/favicon-32x32.png</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Mojtaba-Moradi</Authors>
+    <Authors>AliReza-Bahrami</Authors>
     <Description>.Net Core library for Ghasedak SMS Provider 
 https://github.com/ghasedakapi/ghasedakapi.net-core
 
 </Description>
-    <Version>1.0.7</Version>
+    <Version>1.1.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <AssemblyVersion>1.0.5.0</AssemblyVersion>
     <FileVersion>1.0.5.0</FileVersion>

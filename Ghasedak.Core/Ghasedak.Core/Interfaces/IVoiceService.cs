@@ -9,6 +9,6 @@ namespace Ghasedak.Core.Interfaces
 {
   public interface IVoiceService
     {
-        Task<SendResult> SendVoice(string message, string[] receptor, DateTime? senddate = null);
+        Task<SendResult> SendVoiceAsync(string message, string[] receptor, DateTime? senddate = null);
     }
 }
