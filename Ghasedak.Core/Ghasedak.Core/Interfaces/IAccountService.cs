@@ -9,6 +9,6 @@ namespace Ghasedak.Core.Interfaces
 {
     public interface IAccountService
     {
-        Task<AccountResult> AccountInfoAsync();
+        Task<AccountResult> AccountInfoAsync(string dep = null);
     }
 }
