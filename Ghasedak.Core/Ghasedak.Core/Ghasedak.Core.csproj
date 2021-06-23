@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <PackageProjectUrl>https://ghasedak.io/</PackageProjectUrl>
+    <PackageProjectUrl>https://ghasedak.me/</PackageProjectUrl>
     <PackageIconUrl>https://ghasedak.io/img/favicon/favicon-32x32.png</PackageIconUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>AliReza-Bahrami</Authors>
@@ -10,14 +10,15 @@
 https://github.com/ghasedakapi/ghasedakapi.net-core
 
 </Description>
-    <Version>1.1.1</Version>
+    <Version>1.1.3</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
-    <FileVersion>1.1.1.0</FileVersion>
+    <AssemblyVersion>1.1.3.0</AssemblyVersion>
+    <FileVersion>1.1.3.0</FileVersion>
     <RepositoryUrl>https://github.com/ghasedakapi/ghasedakapi.net-core</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>NetCore SDK send sms</PackageTags>
     <Company>Ghasedak-ict</Company>
+    <Copyright>oy2myarmkvts5tddee5awvjzt2n4bapuzjsoknzef4umma</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
