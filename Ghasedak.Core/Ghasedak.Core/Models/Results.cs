@@ -17,7 +17,6 @@ namespace Ghasedak.Core.Models
         {
             public ResultItems Result { get; set; }
             public AccountItemResult Items { get; set; }
-
         }
         public class AccountItemResult
         {

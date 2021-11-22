@@ -19,7 +19,7 @@ namespace Ghasedak.Core
         /// <summary>
         /// The root URI for the service endpoint.
         /// </summary>
-        private const string _BaseUrl = "https://api.ghasedak.io/";
+        private const string _BaseUrl = "https://api.ghasedak.me/";
 
 
         private readonly string _apikey;
