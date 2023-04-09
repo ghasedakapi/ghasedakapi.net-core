@@ -304,3 +304,4 @@ __pycache__/
 # OpenCover UI analysis results
 OpenCover/
 /Ghasedak.Core/Ghasedak.Core/nuget.exe
+/Ghasedak.Core/nuget/nuget.txt

@@ -19,7 +19,7 @@ namespace Ghasedak.Core
         /// <summary>
         /// The root URI for the service endpoint.
         /// </summary>
-        private const string _BaseUrl = "https://api.ghasedak.me/";
+        private readonly string _BaseUrl = "https://api.ghasedak.me/";
 
 
         private readonly string _apikey;
@@ -32,9 +32,10 @@ namespace Ghasedak.Core
         #endregion
 
         #region Ctor
-        public Api(string apikey)
+        public Api(string apikey, string BaseUrl= "https://api.ghasedak.me/")
         {
             _apikey = apikey;
+            _BaseUrl = BaseUrl;
             _httpClient = new HttpClient();
         }
         #endregion
