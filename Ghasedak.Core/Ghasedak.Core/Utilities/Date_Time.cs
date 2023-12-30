@@ -8,13 +8,15 @@ namespace Ghasedak.Core.Utilities
 {
     public class Date_Time
     {
-        public static double DatetimeToUnixTimeStamp(DateTime date, int Time_Zone = 0)
+        public static double DatetimeToUnixTimeStamp(DateTime date)
         {
             try
             {
-                date = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
-                TimeSpan unixTimeSpan = (date - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).ToLocalTime());
-                return long.Parse(unixTimeSpan.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+                TimeZoneInfo iranTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Iran Standard Time");
+                DateTimeOffset inputDateTimeOffset = new DateTimeOffset(date);
+                DateTimeOffset iranDateTimeOffset = TimeZoneInfo.ConvertTime(inputDateTimeOffset, iranTimeZone);
+                long unixTime = iranDateTimeOffset.ToUnixTimeSeconds();
+                return unixTime;
             }
             catch (Exception ex)
             {
